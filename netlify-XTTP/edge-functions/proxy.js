@@ -2,14 +2,14 @@
 
 // Read the backend URL from environment variables,
 // fallback value is just a placeholder – you must set it in Netlify.
-const BACKEND_URL = Netlify.env.get("BACKEND_URL") || "https://your-backend-server.com";
+const UPSTREAM = Netlify.env.get("UPSTREAM") || "https://your-backend-server.com";
 
 export default async function handler(request, context) {
   try {
     const url = new URL(request.url);
     // Keep the original path + query string
     const targetPath = url.pathname + url.search;
-    const upstreamUrl = new URL(targetPath, BACKEND_URL).toString();
+    const upstreamUrl = new URL(targetPath, UPSTREAM).toString();
 
     // Copy headers from the incoming request
     const headers = new Headers(request.headers);
